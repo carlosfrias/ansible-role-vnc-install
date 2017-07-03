@@ -1,0 +1,10 @@
+---
+# vars file for roles/ansible-role-vnc-install
+os_packages:
+- tightvncserver
+- x11vnc
+- x11vnc-data
+- python-pip
+
+pip_packages:
+- pexpect

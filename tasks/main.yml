@@ -1,0 +1,81 @@
+---
+# tasks file for roles/ansible-role-vnc-install
+- name: Update variables
+  include_vars: "{{ ansible_distribution }}.yml"
+
+- name: Update system packages
+  apt:
+    name: "{{ item }}"
+    install_recommends: no
+    state: present
+    update_cache: yes
+  with_items:
+  - "{{ os_packages }}"
+  when: ansible_os_family == "Debian"
+
+- name: Update pip packages
+  pip:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ pip_packages }}"
+
+- name: Create vncsever folders
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+  - "{{ vnc_folder }}"
+  - "{{ vnc_config_file | dirname }}"
+
+- name: Set vncpassword
+  expect:
+    command: vncpasswd
+    responses:
+      Password: '{{ password }}'
+      Verify: '{{ password }}'
+      "Would you like to enter a view-only password (y/n)?": 'n'
+
+- name: Configure servers
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+  - { src: 'supervisord.conf.j2', dest: '/etc/supervisor/supervisord.conf'}
+  - { src: 'etc_init.d_vncserver.j2', dest: "/etc/init.d/vncserver"}
+
+- name: Vncserver config file
+  become: yes
+  file:
+    path: "{{ vnc_config_file }}"
+    mode: 0755
+
+- name: Generate config files
+  shell: vncserver
+
+- name: Find Existing vncserver sessions
+  find:
+    paths: "{{ vnc_folder }}"
+    pattern: "*:*.pid"
+  register: vnc_sessions_pid
+
+- name: Find Existing vncserver logs
+  find:
+    paths: "{{ vnc_folder }}"
+    pattern: "*:*.pid"
+  register: vnc_sessions_logs
+
+- name: Obtain vnc pid
+  ignore_errors: yes
+  shell: "kill -9 {{ lookup('file', item.path) }}"
+  with_items: "{{ vnc_sessions_pid.files }}"
+
+- name: Remove pid and log files
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  with_items:
+  - "{{ vnc_sessions_pid.files }}"
+  - "{{ vnc_sessions_logs.files }}"
+  notify:
+  - "Start vncserver"
+  - "Restart Supervisor"

@@ -1,0 +1,11 @@
+---
+# handlers file for roles/ansible-role-vnc-install
+- name: Restart Supervisor
+  service:
+    name: supervisor
+    state: restarted
+
+- name: Start vncserver
+  shell: vncserver
+  async: 0
+  poll: 0
