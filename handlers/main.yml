@@ -5,8 +5,3 @@
     name: supervisor
     state: restarted
     enabled: yes
-
-- name: Start vncserver
-  shell: vncserver
-  async: 0
-  poll: 0
