@@ -43,14 +43,19 @@
       Verify: '{{ password }}'
       "Would you like to enter a view-only password (y/n)?": 'n'
 
+- name: Setup target folders
+  file:
+    path: "{{ item.dest | dirname }}"
+    state: directory
+  with_items:
+  - "{{ template_files }}"
+
 - name: Configure servers
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
-  - { src: 'supervisord.conf.j2', dest: '/etc/supervisor/supervisord.conf'}
-  - { src: 'vnc-supervisord.conf.j2', dest: '/etc/supervisor/conf.d/vncconf'}
-  - { src: 'etc_init.d_vncserver.j2', dest: "/etc/init.d/vncserver"}
+  - "{{ template_files }}"
 
 - name: Vncserver config file
   become: yes
