@@ -24,20 +24,12 @@
     path: "{{ item }}"
     state: directory
   with_items:
-  - "/home/{{ username }}/{{ vnc_folder }}"
+  - "{{ vnc_folder }}"
   - "{{ vnc_config_file | dirname }}"
-
-- name: Set local vncserver ownership
-  file:
-    path: "/home/{{ username }}/{{ vnc_folder }}"
-    state: directory
-    owner: "{{ username }}"
-    group: "{{ username }}"
 
 - name: Set vncpassword
   expect:
     command: vncpasswd
-    chdir: "/home/{{ username }}"
     responses:
       Password: '{{ password }}'
       Verify: '{{ password }}'
@@ -68,13 +60,13 @@
 
 - name: Find Existing vncserver sessions
   find:
-    paths: "/home/{{ username }}/{{ vnc_folder }}"
+    paths: "{{ vnc_folder }}"
     pattern: "*:*.pid"
   register: vnc_sessions_pid
 
 - name: Find Existing vncserver logs
   find:
-    paths: "/home/{{ username }}/{{ vnc_folder }}"
+    paths: "{{ vnc_folder }}"
     pattern: "*:*.pid"
   register: vnc_sessions_logs
 
