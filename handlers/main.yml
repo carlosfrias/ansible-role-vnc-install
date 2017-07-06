@@ -4,6 +4,7 @@
   service:
     name: supervisor
     state: restarted
+    enabled: yes
 
 - name: Start vncserver
   shell: vncserver
