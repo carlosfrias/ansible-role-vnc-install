@@ -19,13 +19,20 @@
     state: latest
   with_items: "{{ pip_packages }}"
 
-- name: Create vncsever folders
+- name: Create vncserver folders
   file:
     path: "{{ item }}"
     state: directory
   with_items:
   - "/home/{{ username }}/{{ vnc_folder }}"
   - "{{ vnc_config_file | dirname }}"
+
+- name: Set local vncserver ownership
+  file:
+    path: "/home/{{ username }}/{{ vnc_folder }}"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
 
 - name: Set vncpassword
   expect:
