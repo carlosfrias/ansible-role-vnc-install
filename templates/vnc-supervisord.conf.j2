@@ -1,7 +1,8 @@
 [program:vncserver]
 priority=25
 directory=/root
-command=vncserver :1
+command=vncserver -depth 16 -geometry 1280x1024 :1
+environment=HOME="/root"
 user=root
 autostart=true
 autorestart=true
