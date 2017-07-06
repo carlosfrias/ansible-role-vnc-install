@@ -1,0 +1,12 @@
+[program:novnc]
+priority=25
+directory=/home/{{ username }}
+command=vncserver
+user=root
+autostart=true
+autorestart=true
+stopsignal=QUIT
+stdout_logfile=/var/log/vnc.log
+redirect_stderr=true
+stopasgroup=true
+
