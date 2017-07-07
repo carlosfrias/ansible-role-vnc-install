@@ -1,9 +1,9 @@
 ---
 # vars file for roles/ansible-role-vnc-install
 os_packages:
-- tightvncserver
 - x11vnc
 - x11vnc-data
+- tightvncserver
 - python-pip
 
 pip_packages:
@@ -12,4 +12,5 @@ pip_packages:
 template_files:
 - { src: 'supervisord.conf.j2', dest: '/etc/supervisor/supervisord.conf'}
 - { src: 'vnc-supervisord.conf.j2', dest: '/etc/supervisor/conf.d/vnc.conf'}
+- { src: 'x11vnc-supervisord.conf.j2', dest: '/etc/supervisor/conf.d/x11vnc.conf'}
 - { src: 'etc_init.d_vncserver.j2', dest: "/etc/init.d/vncserver"}
