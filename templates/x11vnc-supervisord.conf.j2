@@ -1,5 +1,5 @@
 [program:x11vnc]
-priority=20
+priority=30
 directory=/
 command=x11vnc -display :1 -xkb -forever -rfbauth {{ vnc_folder }}
 user=root
