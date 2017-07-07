@@ -1,0 +1,10 @@
+[program:xvfb]
+priority=15
+directory=/
+command=/usr/bin/Xvfb :1 -screen 0 1280x1024x16
+user=root
+autostart=true
+autorestart=true
+stopsignal=QUIT
+stdout_logfile=/var/log/xvfb.log
+redirect_stderr=true

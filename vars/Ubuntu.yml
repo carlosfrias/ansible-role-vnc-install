@@ -14,3 +14,4 @@ template_files:
 - { src: 'vnc-supervisord.conf.j2', dest: '/etc/supervisor/conf.d/vnc.conf'}
 - { src: 'x11vnc-supervisord.conf.j2', dest: '/etc/supervisor/conf.d/x11vnc.conf'}
 - { src: 'etc_init.d_vncserver.j2', dest: "/etc/init.d/vncserver"}
+- { src: 'xvfb-supervisord.conf.j2', dest: '/etc/supervisor/conf.d/xvfb.conf'}
