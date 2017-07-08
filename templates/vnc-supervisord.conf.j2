@@ -1,13 +1,14 @@
 [program:vncserver]
 priority=25
-directory=/root
+directory=/home/{{ username }}
 command=vncserver -depth 16 -geometry 1280x1024 :1
 #command=service vncserver start
-environment=HOME="/root",USER="root"
+environment=HOME="/home/{{ usename }}",USER="{{ username }}"
 autostart=true
 autorestart=true
 stopsignal=QUIT
 stdout_logfile=/var/log/vnc.log
 redirect_stderr=true
 stopasgroup=true
+user={{ username }}
 

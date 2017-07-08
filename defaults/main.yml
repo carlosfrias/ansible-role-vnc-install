@@ -1,4 +1,4 @@
 ---
 # defaults file for roles/ansible-role-vnc-install
-vnc_folder: "/root/.vnc"
+vnc_folder: "/{{ username }}/.vnc"
 vnc_config_file: "/etc/init.d/vncserver"
