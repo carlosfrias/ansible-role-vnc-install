@@ -3,5 +3,5 @@
 - name: Start Supervisor
   service:
     name: supervisor
-    state: started
+    state: restarted
     enabled: yes
