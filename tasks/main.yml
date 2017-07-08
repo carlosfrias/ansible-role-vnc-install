@@ -28,6 +28,7 @@
   - "{{ vnc_config_file | dirname }}"
 
 - name: Set vncpassword
+  become: no
   expect:
     command: vncpasswd
     responses:
@@ -56,26 +57,31 @@
     mode: 0755
 
 - name: Generate config files
+  become: no
   shell: vncserver
 
 - name: Find Existing vncserver sessions
+  become: no
   find:
     paths: "{{ vnc_folder }}"
     pattern: "*:*.pid"
   register: vnc_sessions_pid
 
 - name: Find Existing vncserver logs
+  become: no
   find:
     paths: "{{ vnc_folder }}"
     pattern: "*:*.pid"
   register: vnc_sessions_logs
 
 - name: Obtain vnc pid
+  become: no
   ignore_errors: yes
   shell: "kill -9 {{ lookup('file', item.path) }}"
   with_items: "{{ vnc_sessions_pid.files }}"
 
 - name: Remove pid and log files
+  become: no
   file:
     path: "{{ item.path }}"
     state: absent
