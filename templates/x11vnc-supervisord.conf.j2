@@ -1,8 +1,8 @@
 [program:x11vnc]
 priority=30
-directory=/
+directory=/home/{{ username }}
 command=x11vnc -display :1 -xkb -forever -rfbauth {{ vnc_folder }}
-user=root
+user={{ username }}
 autostart=true
 autorestart=true
 stopsignal=QUIT
