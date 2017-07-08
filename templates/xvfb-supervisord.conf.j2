@@ -2,7 +2,7 @@
 priority=15
 directory=/home/{{ username }}
 command=/usr/bin/Xvfb :1 -screen 0 1280x1024x16
-user=root
+user={{ username }}
 autostart=true
 autorestart=true
 stopsignal=QUIT
