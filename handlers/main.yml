@@ -1,7 +1,7 @@
 ---
 # handlers file for roles/ansible-role-vnc-install
-- name: Restart Supervisor
+- name: Start Supervisor
   service:
     name: supervisor
-    state: restarted
+    state: started
     enabled: yes
