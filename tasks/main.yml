@@ -23,6 +23,7 @@
   file:
     path: "{{ item }}"
     state: directory
+    owner: "{{ username }}"
   with_items:
   - "{{ vnc_folder }}"
   - "{{ vnc_config_file | dirname }}"
