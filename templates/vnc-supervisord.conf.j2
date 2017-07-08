@@ -3,7 +3,7 @@ priority=25
 directory=/home/{{ username }}
 command=vncserver -depth 16 -geometry 1280x1024 :1
 #command=service vncserver start
-environment=HOME="/home/{{ usename }}",USER="{{ username }}"
+environment=HOME="/home/{{ username }}",USER="{{ username }}"
 autostart=true
 autorestart=true
 stopsignal=QUIT
