@@ -97,5 +97,9 @@
   with_items:
   - "{{ vnc_sessions_pid.files }}"
   - "{{ vnc_sessions_logs.files }}"
-  notify:
-  - "Start Supervisor"
+
+- name: Start Supervisor
+  service:
+    name: supervisor
+    state: restarted
+    enabled: yes
