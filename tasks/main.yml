@@ -20,6 +20,7 @@
   with_items: "{{ pip_packages }}"
 
 - name: Create vncserver folders
+  become: no
   file:
     path: "{{ item }}"
     state: directory
