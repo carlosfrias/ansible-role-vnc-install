@@ -98,8 +98,15 @@
   - "{{ vnc_sessions_pid.files }}"
   - "{{ vnc_sessions_logs.files }}"
 
-- name: Start Supervisor
-  service:
-    name: supervisor
-    state: restarted
-    enabled: yes
+- block:
+  - name: Start Supervisor
+    service:
+      name: supervisor
+      state: restarted
+      enabled: yes
+  rescue:
+    - name: Start Supervisor
+      service:
+        name: supervisor
+        state: restarted
+        enabled: yes
