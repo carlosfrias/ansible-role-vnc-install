@@ -19,7 +19,7 @@
     state: latest
   with_items: "{{ pip_packages }}"
 
-- name: Create vncserver folders
+- name: Create username vncserver folders
   become: no
   file:
     path: "{{ item }}"
@@ -27,6 +27,13 @@
     owner: "{{ username }}"
   with_items:
   - "{{ vnc_folder }}"
+
+- name: Create admin vncserver folders
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ username }}"
+  with_items:
   - "{{ vnc_config_file | dirname }}"
 
 - name: Set vncpassword
